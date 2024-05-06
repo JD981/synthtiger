@@ -1,4 +1,6 @@
-# 🐯 SynthTIGER: Synthetic Text Image Generator
+<div align="center">
+
+# SynthTIGER 🐯 : Synthetic Text Image Generator
 
 [![PyPI version](https://img.shields.io/pypi/v/synthtiger)](https://pypi.org/project/synthtiger/)
 [![CI](https://github.com/clovaai/synthtiger/actions/workflows/ci.yml/badge.svg)](https://github.com/clovaai/synthtiger/actions/workflows/ci.yml)
@@ -6,9 +8,9 @@
 [![License](https://img.shields.io/github/license/clovaai/synthtiger)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-[Paper](https://arxiv.org/abs/2107.09313) | [Documentation](https://clovaai.github.io/synthtiger/) | [Datasets](#datasets)
+Synthetic Text Image Generator for OCR Model | [Paper](https://arxiv.org/abs/2107.09313) | [Documentation](https://clovaai.github.io/synthtiger/) | [Datasets](#datasets)
 
-SynthTIGER is synthetic text image generator for OCR model.
+</div>
 
 <img src="https://user-images.githubusercontent.com/12423224/153699080-29da7908-0662-4435-ba27-dd07c3bbb7f2.png"/>
 
@@ -48,7 +50,7 @@ $ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ```
 
 ```
-usage: synthtiger [-h] [-o DIR] [-c NUM] [-w NUM] [-v] SCRIPT NAME [CONFIG]
+usage: synthtiger [-h] [-o DIR] [-c NUM] [-w NUM] [-s NUM] [-v] SCRIPT NAME [CONFIG]
 
 positional arguments:
   SCRIPT                Script file path.
@@ -58,8 +60,9 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -o DIR, --output DIR  Directory path to save data.
-  -c NUM, --count NUM   Number of data. [default: 100]
+  -c NUM, --count NUM   Number of output data. [default: 100]
   -w NUM, --worker NUM  Number of workers. If 0, It generates data in the main process. [default: 0]
+  -s NUM, --seed NUM    Random seed. [default: None]
   -v, --verbose         Print error messages while generating data.
 ```
 
@@ -75,7 +78,17 @@ synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger example
 synthtiger -o results -w 4 -v examples/synthtiger/template.py SynthTiger examples/synthtiger/config_vertical.yaml
 ```
 
-<img src="https://user-images.githubusercontent.com/12423224/153699084-1d5fbb15-0ca0-4a85-9639-6f2c4c1bf9ec.png" width="50%"/>
+<p>
+    <img src="https://user-images.githubusercontent.com/12423224/153699084-1d5fbb15-0ca0-4a85-9639-6f2c4c1bf9ec.png" width="50%"/>
+    <img src="https://user-images.githubusercontent.com/12423224/199258481-5706db59-127a-4453-a8ab-4a0bb9f266d5.png" width="45%"/>
+</p>
+
+- `images`: a directory containing images.
+- `gt.txt`: a file containing text labels.
+- `coords.txt`: a file containing bounding boxes of characters with text effect.
+- `glyph_coords.txt`: a file containing bounding boxes of characters without text effect.
+- `masks`: a directory containing mask images with text effect.
+- `glyph_masks`: a directory containing mask images without text effect.
 
 #### Multiline text images
 
@@ -84,6 +97,9 @@ synthtiger -o results -w 4 -v examples/multiline/template.py Multiline examples/
 ```
 
 <img src="https://user-images.githubusercontent.com/12423224/153699088-cdeb3eb3-e117-4959-abf4-8454ad95d886.png" width="75%"/>
+
+- `images`: a directory containing images.
+- `gt.txt`: a file containing text labels.
 
 ## Advanced Usage
 
@@ -183,10 +199,13 @@ copy /b synthtiger_v1.0.zip.* synthtiger_v1.0.zip
 **synthtiger_v1.0.zip** (36G) (md5: 5b5365f4fe15de24e403a9256079be70)
 
 - Original paper version.
+  - Used MJ and ST label.
 
 **synthtiger_v1.1.zip** (38G) (md5: b2757a7e2b5040b14ed64c473533b592)
 
-- Used MJ/ST lexicon instead of MJ/ST label.
+- Used MJ and ST lexicon instead of MJ and ST label.
+  - [resources/corpus/mjsynth.txt](resources/corpus/mjsynth.txt)
+  - [resources/corpus/synthtext.txt](resources/corpus/synthtext.txt)
 - Fixed a bug that applies transformation twice on curved text.
 - Fixed a bug that incorrectly converts grayscale to RGB.
 
